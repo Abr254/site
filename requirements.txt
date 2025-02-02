@@ -1,5 +1,4 @@
 asgiref==3.8.1
-Boot-Image-Extractor @ file:///data/data/com.termux/files/home/Boot-image-Extractor
 certifi==2024.8.30
 channels==4.2.0
 cloudinary==1.41.0
