@@ -17,7 +17,7 @@ def invite(request):
         referral = referrals.first()
 
     # Generate the invite link
-    invite_link = f"http://127.0.0.1:8000/?referral_code={referral.invite_code}"
+    invite_link = f"https://feenax.onrender.com/?referral_code={referral.invite_code}"
 
     # Get the number of referrals excluding the current referral
     referral_count = referrals.exclude(id=referral.id).count()
