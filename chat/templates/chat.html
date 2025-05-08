@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feenax Lucky Spins Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .chat-box {
+      height: 70vh;
+      overflow-y: auto;
+      width:60px
+      padding: 1rem;
+      background-color: white;
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+    }
+    .chat-input {
+      margin-top: 1rem;
+    }
+    .message {
+      max-width: 97%;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      font-weight: 500;
+      position: relative;
+    }
+    .message-left {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      align-self: flex-start;
+      border-top-left-radius: 0;
+    }
+    .message-right {
+      background: linear-gradient(135deg, #56ab2f, #a8e063);
+      align-self: flex-end;
+      border-top-right-radius: 0;
+    }
+    .message-wrapper {
+      display: flex;
+      align-items: flex-end;
+    }
+    .message-wrapper.left {
+      flex-direction: row;
+    }
+    .message-wrapper.right {
+      flex-direction: row-reverse;
+    }
+    .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 10px;
+      object-fit: cover;
+    }
+    .username {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .message-container {
+      display: flex;
+      width:200px;
+      flex-direction: column;
+    }
+    h3{
+        color:red;
+    }
+  </style>
+</head>
+<body>
+<h3> TEMPORARILY DISABLED!</h3>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">feenax support</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'feenax' %}">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'chat' %}">
+            <i class="fas fa-user-cog"></i> Profile
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Chat Section -->
+<div class="container mt-4">
+  <div class="chat-box d-flex flex-column">
+
+
+    <!-- Received Message -->
+    <div class="message-wrapper left">
+      <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1746727854/whgjiailymhpr0libona.jpg"alt="Bot" class="profile-pic">
+      <div class="message-container">
+        <div class="username text-primary">Abr254</div>
+        <div class="message message-left">Welcome to feenax platform!</div>
+      </div>
+    </div>
+
+    <!-- Sent Message -->
+    <div class="message-wrapper right">
+      <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1746727854/whgjiailymhpr0libona.jpg"alt="User" class="profile-pic">
+      <div class="message-container text-end">
+        <div class="username text-success">tom</div>
+        <div class="message message-right">🔹🔹This message was deleted</div>
+      </div>
+    </div>
+
+  </div>
+
+  <form class="chat-input d-flex" onsubmit="sendMessge(evnt)">
+    <input type="text" id="chatInput" class="form-control me-2" placeholder="Type your message..." required>
+    <button class="btn btn-primary" type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+  function sendMessage(event) {
+    event.preventDefault();
+    const input = document.getElementById("chatInput");
+    const chatBox = document.querySelector(".chat-box");
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "message-wrapper right";
+
+    wrapper.innerHTML = `
+      
+      <div class="message-container text-end">
+        <div class="username text-success">You</div>
+        <div class="message message-right"></div>
+      </div>
+    `;
+
+    chatBox.appendChild(wrapper);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    input.value = "";
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

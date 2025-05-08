@@ -157,77 +157,73 @@
         <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738396246/kp56tkyrve9xuxcfitfb.jpg" alt="Profile Picture">
         <p>{{ user.username }}</p>
         <!-- Displaying the account balance -->
-        <p class="account-balance">Account Balance: $2.00</p> <!-- Initial balance -->
+        <p class="account-balance"> account balance {{ balance }} ksh <p> <!-- Initial balance -->
     </div>
 </div>
 
 <div class="row">
     <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311587/wbyldx3oe51p3in7km5u.jpg" alt="Play Games">
-            <button class="button-85">Play Games</button> <!-- Text Button below Image -->
+        <a href="{% url 'chart' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1746126090/bbypalmvta7rzcpdlyze.jpg">
+            <button class="button-85">Analytics/Data</button>
+        </a>
+    </div>
+    <div class="column">
+        <a href="{% url 'mpesa' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738395874/jtswblgzcnadou5bhlv4.jpg">
+            <button class="button-85">Fund Account</button>
+        </a>
+    </div>
+ 
+    <div class="column">
+        <a href="{% url 'chat' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738320966/fycoknhayln9fal5t5p1.jpg">
+            <button class="button-85">Chat/Support</button>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column">
+        <a href="{% url 'collect' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1743869625/dppahotrptiydl2pxs9f.jpg">
+            <button class="button-85">Develop/Git</button>
+        </a>
+    </div>
+
+    <div class="column">
+        <a href="{% url 'invite' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311701/jsso9jja07acgzbpttsm.jpg">
+            <button class="button-85">Earn Points</button>
+        </a>
+    </div>
+    <div class="column">
+        <a href="{% url 'quiz_list' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738395892/iy9vstcob6zxauswm4ug.jpg">
+            <button class="button-85">Quiz Challenge</button>
+        </a>
+    </div>
+  </div>
+  
+<div class="row">
+    <div class="column">
+        <a href="{% url 'invest' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311561/vlpcdc8ejw12kga8o8g7.jpg">
+            <button class="button-85">Invest Asset</button>
+        </a>
+    </div>
+
+    <div class="column">
+        <a href="{% url 'spin' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738501669/t3uxhlkeq8e4kf5he3uc.jpg">
+            <button class="button-85">Feenax Spin</button>
         </a>
     </div>
     
     <div class="column">
-        <a href="{% url 'notify'%}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311612/glbub9eznsucemylli3e.jpg" alt="Withdraw Balance">
-            <button class="button-85">Withdraw </button> <!-- Text Button below Image -->
-        </a>
-    </div>
-    
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311561/vlpcdc8ejw12kga8o8g7.jpg" alt="Invest in Crypto">
-            <button class="button-85">Invest Crypto</button> <!-- Text Button below Image -->
-        </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738312278/b9u9at6cmlk5z2w9ri1f.jpg" alt="Watch Ads">
-            <button class="button-85">Watch Ads</button> <!-- Text Button below Image -->
-        </a>
-    </div>
-
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311701/jsso9jja07acgzbpttsm.jpg" alt="Earn Points">
-            <button class="button-85">Earn Points</button> <!-- Text Button below Image -->
-        </a>
-    </div>
-
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311661/nciogwgmx47xtyheskxz.jpg" alt="Surveys">
-            <button class="button-85">Surveys</button> <!-- Text Button below Image -->
-        </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738320966/fycoknhayln9fal5t5p1.jpg" alt="">
-            <button class="button-85">Chat</button> <!-- Text Button below Image -->
-        </a>
-    </div>
-
-<div class="row">
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738395892/iy9vstcob6zxauswm4ug.jpg" alt="">
-            <button class="button-85">Quiz chall</button> <!-- Text Button below Image -->
-        </a>
-    </div>
-
-<div class="row">
-    <div class="column">
-        <a href="{% url 'notify' %}" class="btn-image">
-            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738395874/jtswblgzcnadou5bhlv4.jpg" alt="">
-            <button class="button-85">Fund acc</button> <!-- Text Button below Image -->
+        <a href="{% url 'withdraw' %}" class="btn-image">
+            <img src="https://res.cloudinary.com/ddpphe1uv/image/upload/v1738311612/glbub9eznsucemylli3e.jpg">
+            <button class="button-85">Withdraw balance</button>
         </a>
     </div>
 </div>

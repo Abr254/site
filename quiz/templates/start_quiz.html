@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <!-- Header Section -->
+    <div class="text-center mb-4">
+        <h2 class="text-primary">{{ quiz.title }}</h2>
+        <p class="lead">Test your knowledge and complete the quiz!</p>
+    </div>
+    
+    <!-- Form for quiz -->
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Loop through all the questions -->
+        {% for question in questions %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <!-- Multiline question text support -->
+                    <h5 class="card-title" style="white-space: pre-wrap;">{{ question.question_text }}</h5>
+                    <div class="form-check">
+                        <input type="radio" name="{{ question.id }}" value="A" class="form-check-input" id="q{{ question.id }}a">
+                        <label class="form-check-label" for="q{{ question.id }}a">{{ question.option_a }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="{{ question.id }}" value="B" class="form-check-input" id="q{{ question.id }}b">
+                        <label class="form-check-label" for="q{{ question.id }}b">{{ question.option_b }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="{{ question.id }}" value="C" class="form-check-input" id="q{{ question.id }}c">
+                        <label class="form-check-label" for="q{{ question.id }}c">{{ question.option_c }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="{{ question.id }}" value="D" class="form-check-input" id="q{{ question.id }}d">
+                        <label class="form-check-label" for="q{{ question.id }}d">{{ question.option_d }}</label>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-lg btn-success">Submit Quiz</button>
+        </div>
+    </form>
+</div>
+
+{% block extra_styles %}
+<style>
+    /* Custom styling for the page */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+    }
+
+    .container {
+        max-width: 900px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .form-check-label {
+        font-size: 1.1rem;
+        margin-left: 10px;
+    }
+
+    .btn {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        border-radius: 25px;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    h2 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        color: #333;
+    }
+
+    p.lead {
+        font-size: 1.25rem;
+        color: #555;
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // JavaScript can go here if needed (e.g., for form validation or interactions)
+</script>
+{% endblock %}
+{% endblock %}

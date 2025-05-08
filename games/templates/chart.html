@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earnings Chart</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .terminal-loader {
+      border: 0.1em solid #333;
+      background-color: #1a1a1a;
+      color: #0f0;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1em;
+      padding: 1.5em 1em;
+      width: 12em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .terminal-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1.5em;
+      background-color: #333;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      padding: 0 0.4em;
+      box-sizing: border-box;
+    }
+
+    .terminal-controls {
+      float: right;
+    }
+
+    .control {
+      display: inline-block;
+      width: 0.6em;
+      height: 0.6em;
+      margin-left: 0.4em;
+      border-radius: 50%;
+      background-color: #777;
+    }
+
+    .control.close { background-color: #e33; }
+    .control.minimize { background-color: #ee0; }
+    .control.maximize { background-color: #0b0; }
+
+    .terminal-title {
+      float: left;
+      line-height: 1.5em;
+      color: #eee;
+    }
+
+    .text {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 0.2em solid green;
+      animation: typeAndDelete 4s steps(11) infinite, blinkCursor 0.5s step-end infinite alternate;
+      margin-top: 1.5em;
+    }
+
+    @keyframes blinkCursor {
+      50% { border-right-color: transparent; }
+    }
+
+    @keyframes typeAndDelete {
+      0%, 10% { width: 0; }
+      45%, 55% { width: 6.2em; }
+      90%, 100% { width: 0; }
+    }
+
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .nav-link.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Earnings Dashboard</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <li class="nav-item">
+                    <a class="nav-link" href="{% url 'feenax' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'chat' %}">
+                        <i class="fas fa-user-cog"></i> profile 
+                    </a>
+                </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="terminal-loader">
+      <div class="terminal-header">
+        <div class="terminal-title">Status</div>
+        <div class="terminal-controls">
+          <div class="control close"></div>
+          <div class="control minimize"></div>
+          <div class="control maximize"></div>
+        </div>
+      </div>
+      <div class="text">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container py-5">
+    <div class="card mb-4 p-4 rounded-3">
+      <h2 class="text-center mb-3">Earnings Over the Last Month</h2>
+      <canvas id="earningsChart" height="200"></canvas>
+    </div>
+
+    <div class="card mb-4 p-4 rounded-3">
+      <h2 class="text-center mb-3">Earnings by Site</h2>
+      <canvas id="siteChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- Chart Script -->
+  <script>
+    const earningsCtx = document.getElementById('earningsChart').getContext('2d');
+    const earningsChart = new Chart(earningsCtx, {
+      type: 'bar',
+      data: {
+        labels: {{ dates|safe }},
+        datasets: [{
+          label: 'Total Earnings (Ksh)',
+          data: {{ earnings|safe }},
+          backgroundColor: 'rgba(75, 192, 192, 0.3)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    const siteCtx = document.getElementById('siteChart').getContext('2d');
+    const siteChart = new Chart(siteCtx, {
+      type: 'pie',
+      data: {
+        labels: {{ sites|safe }},
+        datasets: [{
+          label: 'Earnings by Site',
+          data: {{ site_earnings|safe }},
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)'
+          ],
+          borderColor: '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    window.addEventListener("load", function () {
+      document.getElementById("loader").style.display = "none";
+    });
+  </script>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

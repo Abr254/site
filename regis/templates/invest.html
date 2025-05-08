@@ -1,0 +1,109 @@
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invest</title>
+    <!-- Bootstrap & Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            padding-top: 90px;
+            background: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+        }
+        .card-header {
+            border-radius: 15px 15px 0 0;
+        }
+        .btn-primary {
+            width: 100%;
+            font-size: 1.2rem;
+        }
+            .nav-link {
+            font-size: 2.1rem;
+            padding: 0.7rem 3rem;
+        ul li strong {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'feenax' %}">Feenax invest</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'feenax' %}"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'chat' %}"><i class="fas fa-user-cog"></i> Profile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white text-center">
+            <h2>Invest & Earn</h2>
+            <p class="mb-0">Choose your amount and enjoy returns in 10 days!</p>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="amount">Enter Investment Amount (Ksh):</label>
+                    <input type="number" id="amount" name="amount" class="form-control form-control-lg" placeholder="e.g. 500" required>
+                </div>
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Invest Now</button>
+                </div>
+            </form>
+
+            {% if messages %}
+            <div class="mt-4">
+                <ul class="list-group">
+                    {% for message in messages %}
+                        <li class="list-group-item text-info">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <hr>
+            <h5 class="mt-4">Investment Terms:</h5>
+            <ul class="list-unstyled">
+                <li>Ksh 100 - 200 → <strong>105%</strong> refund in 10 days</li>
+                <li>Ksh 300 - 400 → <strong>110%</strong> refund in 10 days</li>
+                <li>Ksh 500 - 600 → <strong>115%</strong> refund in 10 days</li>
+                <li>Ksh 700 - 800 → <strong>120%</strong> refund in 10 days</li>
+                <li>Ksh 900 - 1000 → <strong>130%</strong> refund in 10 days</li>
+                <li>Above Ksh 1100 → <strong>150%</strong> refund in 10 days</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

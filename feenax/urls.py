@@ -22,6 +22,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('regis.urls')),  # Add your app URLs here
+    path('', include('regis.urls')), 
+    path('ads/', include('ads.urls')),
+    path('chat/', include('chat.urls')),
+    path('fund/', include('fund.urls')),
+    path('games/', include('games.urls')),
+    path('invest/', include('invest.urls')),
+    path('invite/', include('invite.urls')),
+    path('mpesa/', include('mpesa.urls')),
+    path('quiz/', include('quiz.urls')),
+    path('withdraw/', include('withdraw.urls')),
 ]
-

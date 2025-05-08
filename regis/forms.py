@@ -1,13 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-# forms.py
-
-from django import forms
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 
 CustomUser = get_user_model()  # This ensures you're using the custom user model
 
@@ -22,8 +16,8 @@ class RegistrationForm(forms.ModelForm):
     )
 
     class Meta:
-        model = CustomUser  # Use the custom user model here
-        fields = ['username', 'email']
+        model = CustomUser
+        fields = ['username', 'phone_number']
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -34,16 +28,13 @@ class RegistrationForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password1'])
+        user.set_password(self.cleaned_data['password1'])  # Hash the password
+        user.phone_number = self.cleaned_data['phone_number']  # Save phone number
         if commit:
             user.save()
         return user
-
-    # Custom password fields to handle password confirmation
-    
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100, label='Username')
     password = forms.CharField(widget=forms.PasswordInput(), label='Password')
-

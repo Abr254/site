@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: black;
+            font-family: 'Courier New', monospace; /* Traditional monospaced font for hacker style */
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .container, nav, .success-message, .card {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h2, h3 {
+            color: #007bff;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .form-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .tooltip-inner {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .guidelines {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+        }
+
+        nav {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'feenax' %}>DevPortal</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'feenax' %}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'chat' %}">
+                        <i class="fas fa-user-cog"></i> profile 
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Form Container -->
+<div class="container">
+    {% if not form.is_bound or form.errors %}
+        <h2>Developer Profile Submission</h2>
+        <h3>Submit valid git repo and earn $2 in rewards as you await high-paying projects</h3>
+        <p class="guidelines">This page is only for developers</p>
+        <p class="guidelines">Please fill in your details to help us understand your expertise. Fields marked with * are required.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="user" class="form-label">Your Name <span class="text-danger">*</span></label>
+                {{ form.user }}
+                <div class="form-text">Enter your full name.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="expertise" class="form-label">Expertise <span class="text-danger">*</span></label>
+                {{ form.expertise }}
+                <div class="form-text">Select your primary area of expertise (Frontend or Backend development).</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="git_repo" class="form-label">GitHub Repository</label>
+                {{ form.git_repo }}
+                <div class="form-text">If you have a public GitHub repository, please provide the link here.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Short Description (Optional)</label>
+                {{ form.description }}
+                <div class="form-text">Provide a brief description of your skills or past projects.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% else %}
+        <div class="success-message">
+            <h2>Success!</h2>
+            <p>Your profile has been successfully submitted. Thank you!</p>
+            <a href="invite" class="back-btn">Go back to Home</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Dashboard Section -->
+<div class="container" id="dashboard">
+    <h2>Developer Dashboard</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Your Submissions</h5>
+                    <p class="card-text">Track the status of your GitHub repository submissions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Project Opportunities</h5>
+                    <p class="card-text">View available projects that match your skills.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Rewards</h5>
+                    <p class="card-text">Check your earned rewards and pending verifications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+    const fontSize = 16;
+    let columns, drops;
+
+    // Function to get characters, with a bias towards '1' and '0' but with added randomness for variety
+    function getBiasedChar() {
+        const biasPool = "01".repeat(5) + "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return biasPool[Math.floor(Math.random() * biasPool.length)];
+    }
+
+    // Resize canvas to full screen
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        columns = Math.floor(canvas.width / fontSize);
+        drops = new Array(columns).fill(1);
+    }
+
+    // Function to draw matrix effect
+    function draw() {
+        // Background with slight fading effect for smooth transition
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = `${fontSize}px 'Courier New'`;
+
+        for (let i = 0; i < drops.length; i++) {
+            const char = getBiasedChar();
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+
+            // Dynamic opacity for a fading effect
+            ctx.fillStyle = `rgba(0, 255, 0, ${Math.random() * 0.3 + 0.6})`; 
+            ctx.fillText(char, x, y);
+
+            // Randomly reset some columns with more probability, giving a "flickering" effect
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    resizeCanvas();
+    setInterval(draw, 40); // Adjusted for slightly faster rendering
+    window.addEventListener("resize", resizeCanvas);
+</script>
+
+</body>
+</html>
