@@ -16,7 +16,10 @@
             padding: 20px;
             border-bottom: ; /* Slightly darker blue border */
         }
-
+     body{
+         font-family: 'Courier New', monospace;
+         
+     }
         .top-section p {
             font-size: 1.5em;
             margin: 0;
@@ -83,6 +86,7 @@
             padding: 0.6em 2em;
             border: none;
             outline: none;
+            font-family: 'Courier New', monospace;
             color: rgb(255, 255, 255);
             background: #111;
             cursor: pointer;
@@ -228,7 +232,7 @@
     </div>
 </div>
 <br></br>
-<footer style="background-color: #333; color: #fff; padding: 10px; font-family: Arial, sans-serif;">
+<footer style="background-color: #333; color: #fff; padding: 10px; font-family: 'Courier New', monospace;/*font-family: Arial, sans-serif;*/">
   <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
     <!-- Column 1: Logo and About -->
     <div style="flex: 1; margin-right: 20px; display: flex; align-items: center;">
@@ -242,10 +246,10 @@
     <div style="flex: 1; margin-right: 20px;">
       <h4 style="font-size: 18px;">Quick Links</h4>
       <ul style="list-style-type: none; padding-left: 0;">
-        <li><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
-        <li><a href="#" style="color: #fff; text-decoration: none;">About Us</a></li>
-        <li><a href="#" style="color: #fff; text-decoration: none;">Services</a></li>
-        <li><a href="#" style="color: #fff; text-decoration: none;">Contact</a></li>
+        <li><a href="{% url 'invite' %}" style="color: #fff; text-decoration: none;">Home</a></li>
+        <li><a href="https://startech-m2z9.onrender.com" style="color: #fff; text-decoration: none;">About Us</a></li>
+        <li><a href="mailto: kemboiabu22@gmail.com"style="color: #fff; text-decoration: none;">Services</a></li>
+        <li><a href="mailto: kemboiabu22@gmail.com" style="color: #fff; text-decoration: none;">Contact</a></li>
       </ul>
     </div>
 
@@ -259,17 +263,17 @@
           </a>
         </li>
         <li style="margin-right: 10px;">
-          <a href="#" style="color: #fff; text-decoration: none;" target="_blank">
+          <a href= "{% url 'notify' %}"style="color: #fff; text-decoration: none;" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter" style="width: 24px; height: 24px;">
           </a>
         </li>
         <li style="margin-right: 10px;">
-          <a href="#" style="color: #fff; text-decoration: none;" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Instagram_logo_2022.svg" alt="Instagram" style="width: 24px; height: 24px;">
+          <a href= "{% url 'notify' %}"style="color: #fff; text-decoration: none;" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Instagram_logo_2022.svg" alt="Instagram" style="width: 24px; ight: 24px;">
           </a>
         </li>
         <li style="margin-right: 10px;">
-          <a href="#" style="color: #fff; text-decoration: none;" target="_blank">
+          <a href="{% url 'notify' %}"style="color: #fff; text-decoration: none;" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/LinkedIn_Logo_2013.svg" alt="LinkedIn" style="width: 24px; height: 24px;">
           </a>
         </li>
@@ -279,7 +283,7 @@
           </a>
         </li>
         <li>
-          <a href="#" style="color: #fff; text-decoration: none;" target="_blank">
+          <a href= "{% url 'notify' %}"style="color: #fff; text-decoration: none;" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Pinterest_logo_2017.svg" alt="Pinterest" style="width: 24px; height: 24px;">
           </a>
         </li>
